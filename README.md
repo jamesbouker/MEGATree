@@ -37,9 +37,8 @@ pod "MEGATree", "~> 1.0"
 #### Wiki
 In computer science, an AVL tree (Georgy Adelson-Velsky and Evgenii Mikhailovich Landis' tree, named after the inventors) is a self-balancing binary search tree. It was the first such data structure to be invented. Read more on ["Wikipedia!](http://en.wikipedia.org/wiki/AVL_tree)
 
-#### Keywords
-MEGATree, AVLTree, Objective-C, Balanced Binary Search Tree, BST
-
 #### Naming
 The name AVLTree was taken (╯°□°）╯︵ ┻━┻). As AVLTree was, MEGATree is also named after it's original creators, Mikhailovich Evgenii and Georgy Adelson
 
+#### Keywords
+MEGATree, AVLTree, Objective-C, Balanced Binary Search Tree, BST
