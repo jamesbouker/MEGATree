@@ -14,6 +14,7 @@ Objective-C AVLTree implementation
   
   //check for items  - log(n) time
   if([tree contains:@"someKey"]) NSLog(@"FOUND");
+  //equivalent check [tree get:@"someKey"] != nil
   
   //remove items  - log(n) time
   [tree remove:@"someKey"];
