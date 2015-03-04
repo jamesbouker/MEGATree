@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => 'https://github.com/jamesbouker/MEGATree.git', :tag => s.version }
 
-  s.source_files  = 'MEGATree/*.h'
+  s.source_files  = 'MEGATree/*.{h,m}'
   s.public_header_files = 'MEGATree/MEGATree.h'
 
   s.requires_arc = true
