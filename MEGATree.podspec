@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'MEGATree'
-  s.version      = '1.0.1'
+  s.version      = '1.0.2'
   s.summary      = 'Objective-C AVLTree implementation'
 
   s.description  = <<-DESC
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/jamesbouker/MEGATree.git', :tag => s.version }
 
   s.source_files  = 'MEGATree/*.{h,m}'
-  s.public_header_files = 'MEGATree/MEGATree.h'
+  s.public_header_files = 'MEGATree/*.h'
 
   s.requires_arc = true
 
