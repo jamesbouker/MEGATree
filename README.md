@@ -10,10 +10,11 @@ Objective-C AVLTree implementation
   [tree push:@"someKey" value:someValue];
   
   //perform lookups - log(n) time
-  lol I forgot to add this! Will tomorrow too tired...
+  id value = [tree get:@"someKey"];
   
   //check for items  - log(n) time
   if([tree contains:@"someKey"]) NSLog(@"FOUND");
+  //equivalent check [tree get:@"someKey"] != nil
   
   //remove items  - log(n) time
   [tree remove:@"someKey"];
