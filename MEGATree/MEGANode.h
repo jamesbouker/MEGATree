@@ -27,6 +27,7 @@
 -(instancetype)initWithKey:(id<NSCopying, MEGAComparable>)key value:(id)value;
 +(MEGANode*)push:(id<NSCopying, MEGAComparable>)key value:(id)value root:(MEGANode*)node delegate:(id<AVLNodeDelegate>)delegate;
 +(MEGANode*)remove:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node removed:(BOOL)hasRemoved delegate:(id<AVLNodeDelegate>)delegate;
++(id)get:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node;
 +(BOOL)contains:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node;
 +(void)orderedArray:(NSMutableArray*)array node:(MEGANode*)node;
 

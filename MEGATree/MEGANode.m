@@ -93,13 +93,18 @@
     return [MEGANode recover:node];
 }
 
-+(BOOL)contains:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node {
-    if(node == nil)     return NO;
++(id)get:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node {
+    if(node == nil)     return nil;
     
     NSComparisonResult diff = [key compare:node.key];
-    if(diff < 0)        return [MEGANode contains:key root:node.left];
-    else if(diff > 0)   return [MEGANode contains:key root:node.right];
-    else                return YES;
+    if(diff < 0)        return [MEGANode get:key root:node.left];
+    else if(diff > 0)   return [MEGANode get:key root:node.right];
+    else                return node.value;
+}
+
++(BOOL)contains:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node {
+    id value = [MEGANode get:key root:node];
+    return value != nil;
 }
 
 +(void)orderedArray:(NSMutableArray*)array node:(MEGANode*)node {

@@ -15,6 +15,7 @@
 
 -(void)push:(id<NSCopying, MEGAComparable>)key value:(id)value;
 -(void)remove:(id<NSCopying, MEGAComparable>)key;
+-(id)get:(id<NSCopying, MEGAComparable>)key;
 -(BOOL)contains:(id<NSCopying, MEGAComparable>)key;
 -(NSArray*)orderedArray;
 

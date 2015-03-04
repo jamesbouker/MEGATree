@@ -17,11 +17,16 @@
 #pragma mark - Public Methods
 
 -(void)push:(id<NSCopying, MEGAComparable>)key value:(id)value {
-    self.root = [MEGANode push:key value:value root:self.root delegate:self];
+    if(value != nil)
+        self.root = [MEGANode push:key value:value root:self.root delegate:self];
 }
 
 -(void)remove:(id<NSCopying, MEGAComparable>)key {
     self.root = [MEGANode remove:key root:self.root removed:NO delegate:self];
+}
+
+-(id)get:(id<NSCopying, MEGAComparable>)key {
+    return [MEGANode get:key root:self.root];
 }
 
 -(BOOL)contains:(id<NSCopying, MEGAComparable>)key {
