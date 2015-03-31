@@ -8,11 +8,6 @@
 #import <Foundation/Foundation.h>
 #import "MEGAComparable.h"
 
-@protocol AVLNodeDelegate <NSObject>
--(void)removedNode;
--(void)addedNode;
-@end
-
 @interface MEGANode : NSObject
 
 //Data
@@ -21,12 +16,13 @@
 
 //Bookkeeping
 @property (nonatomic, assign) NSUInteger height;
+@property (nonatomic, assign) NSUInteger size;
 @property (nonatomic, strong) MEGANode *left;
 @property (nonatomic, strong) MEGANode *right;
 
 -(instancetype)initWithKey:(id<NSCopying, MEGAComparable>)key value:(id)value;
-+(MEGANode*)push:(id<NSCopying, MEGAComparable>)key value:(id)value root:(MEGANode*)node delegate:(id<AVLNodeDelegate>)delegate;
-+(MEGANode*)remove:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node removed:(BOOL)hasRemoved delegate:(id<AVLNodeDelegate>)delegate;
++(MEGANode*)push:(id<NSCopying, MEGAComparable>)key value:(id)value root:(MEGANode*)node;
++(MEGANode*)remove:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node;
 +(id)get:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node;
 +(BOOL)contains:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node;
 +(void)orderedArray:(NSMutableArray*)array node:(MEGANode*)node;

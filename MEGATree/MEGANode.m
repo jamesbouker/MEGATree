@@ -20,6 +20,8 @@
 +(MEGANode*)rotateLeft:(MEGANode*)node;
 +(NSInteger)height:(MEGANode*)node;
 +(NSInteger)recalcHeight:(MEGANode*)node;
++(NSInteger)size:(MEGANode *)node;
++(NSInteger)recalcSize:(MEGANode *)node;
 
 @end
 
@@ -36,20 +38,20 @@
         self.left = nil;
         self.right = nil;
         self.height = 1;
+        self.size = 1;
     }
     return self;
 }
 
-+(MEGANode*)push:(id<NSCopying, MEGAComparable>)key value:(id)value root:(MEGANode*)node delegate:(id<AVLNodeDelegate>)delegate {
++(MEGANode*)push:(id<NSCopying, MEGAComparable>)key value:(id)value root:(MEGANode*)node {
     if(node == nil) {
         //Inform the AVLTree
-        [delegate addedNode];
         return [[MEGANode alloc] initWithKey:key value:value];
     }
     
     NSComparisonResult diff = [key compare:node.key];
-    if(diff < 0)        node.left = [MEGANode push:key value:value root:node.left delegate:delegate];
-    else if(diff > 0)   node.right = [MEGANode push:key value:value root:node.right delegate:delegate];
+    if(diff < 0)        node.left = [MEGANode push:key value:value root:node.left];
+    else if(diff > 0)   node.right = [MEGANode push:key value:value root:node.right];
     else {
         
         //Overwrite the data
@@ -60,20 +62,15 @@
     return [MEGANode recover:node];
 }
 
-+(MEGANode*)remove:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node removed:(BOOL)removed  delegate:(id<AVLNodeDelegate>)delegate {
++(MEGANode*)remove:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node {
     if(node == nil) return nil;
     
     NSComparisonResult diff = [key compare:node.key];
     if(diff < 0)
-        node.left  = [MEGANode remove:key root:node.left removed:removed delegate:delegate];
+        node.left  = [MEGANode remove:key root:node.left];
     else if(diff > 0)
-        node.right = [MEGANode remove:key root:node.right removed:removed delegate:delegate];
+        node.right = [MEGANode remove:key root:node.right];
     else {
-        if(!removed) {
-            //Inform the AVLTree
-            [delegate removedNode];
-        }
-        
         //Less than 2 children
         if(node.left == nil || node.right == nil) {
             node = node.left != nil? node.left : node.right;
@@ -86,7 +83,7 @@
             MEGANode *successor = [MEGANode successor:node];
             node.key = successor.key;
             node.value = successor.value;
-            node.right = [MEGANode remove:successor.key root:node.right removed:YES delegate:delegate];
+            node.right = [MEGANode remove:successor.key root:node.right];
         }
     }
     
@@ -103,16 +100,20 @@
 }
 
 +(BOOL)contains:(id<NSCopying, MEGAComparable>)key root:(MEGANode*)node {
-    id value = [MEGANode get:key root:node];
-    return value != nil;
+    if(node == nil)     return NO;
+    
+    NSComparisonResult diff = [key compare:node.key];
+    if(diff < 0)        return [MEGANode contains:key root:node.left];
+    else if(diff > 0)   return [MEGANode contains:key root:node.right];
+    else                return YES;
 }
 
 +(void)orderedArray:(NSMutableArray*)array node:(MEGANode*)node {
     if(node == nil) return;
     
     [MEGANode orderedArray:array node:node.left];
-//    [array addObject:@{@"key" : node.key, @"value" : node.value}];
-    [array addObject:node.key];
+    [array addObject:@{@"key" : node.key, @"value" : node.value}];
+//    [array addObject:node.key];
     [MEGANode orderedArray:array node:node.right];
 }
 
@@ -124,6 +125,7 @@
 
 +(MEGANode*)recover:(MEGANode*)node {
     node.height = [MEGANode recalcHeight:node];
+    node.size = [MEGANode recalcSize:node];
     return [MEGANode rebalance:node];
 }
 
@@ -204,6 +206,16 @@
 +(NSInteger)recalcHeight:(MEGANode *)node {
     if(node == nil) return 0;
     return MAX([MEGANode height:node.left], [MEGANode height:node.right]) + 1;
+}
+
++(NSInteger)size:(MEGANode *)node {
+    if(node == nil) return 0;
+    return node.size;
+}
+
++(NSInteger)recalcSize:(MEGANode *)node {
+    if(node == nil) return 0;
+    return [MEGANode size:node.left] + [MEGANode size:node.right] + 1;
 }
 
 @end

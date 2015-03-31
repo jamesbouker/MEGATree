@@ -8,7 +8,7 @@
 #import "MEGATree.h"
 #import "MEGANode.h"
 
-@interface MEGATree () <AVLNodeDelegate>
+@interface MEGATree ()
 @property (nonatomic, strong) MEGANode *root;
 @end
 
@@ -18,11 +18,13 @@
 
 -(void)push:(id<NSCopying, MEGAComparable>)key value:(id)value {
     if(value != nil)
-        self.root = [MEGANode push:key value:value root:self.root delegate:self];
+        self.root = [MEGANode push:key value:value root:self.root];
+    else
+        [self remove:key];
 }
 
 -(void)remove:(id<NSCopying, MEGAComparable>)key {
-    self.root = [MEGANode remove:key root:self.root removed:NO delegate:self];
+    self.root = [MEGANode remove:key root:self.root];
 }
 
 -(id)get:(id<NSCopying, MEGAComparable>)key {
